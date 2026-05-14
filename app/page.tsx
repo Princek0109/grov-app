@@ -1,13 +1,49 @@
-import { Button } from "@/components/ui/button"
+import CompanionCard from "@/components/CompanionCard"
+import CompanionsList from "@/components/CompanionsList"
+import CTA from "@/components/CTA"
+import { recentSessions } from "@/constants"
 
 const Page = () => {
   return (
-    <div>
-      <h1>Welcome to the Grov Quick App!</h1>
-    <Button>
-      Lets get Started
-    </Button>
-    </div>
+    <main>
+      <h1 >Popular Companions</h1>
+    <section className="home-section">
+        <CompanionCard 
+        id="123"
+        name="Neura the Binary Explorer"
+        topic="Neural Networks of the brain"
+        subject="Science"
+        duration={45}
+        color="yellow"
+        />
+         <CompanionCard 
+        id="456"
+        name="Country the number Wizard"
+        topic="Derivatives and Integrals"
+        subject="Maths"
+        duration={45}
+        color="red"
+        />
+         <CompanionCard 
+        id="789"
+        name="Verba the vocaboulary Builder"
+        topic="language learning tips and tricks"
+        subject="English"
+        duration={45}
+        color="green"
+        />
+        
+    </section>
+        <section className="home-section">
+            <CompanionsList 
+            title="Recently Completed Sessions"
+            companions={recentSessions}
+            classNames="w-2/3 max-lg:w-full"
+            />
+            <CTA />
+        
+        </section>
+    </main>
   )
 }
 
