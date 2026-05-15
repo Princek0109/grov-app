@@ -40,19 +40,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             setCallStatus(CallStatus.FINISHED);
             addToSessionHistory(companionId)
         }
-// yaha se niche wala code message receive karne ke baad chalna chahiye, taki jab bhi assistant se koi message aaye to wo messages state me add ho jaye aur transcript me show ho
-      const onMessage = (message: any) => {
-    console.log("MESSAGE RECEIVED:", message);
 
-    setMessages((prev) => [
-        ...prev,
-        {
-            role: "assistant",
-            content: JSON.stringify(message),
-        },
-    ]);
-};
-// yaha tak
+        const onMessage = (message: Message) => {
+            if(message.type === 'transcript' && message.transcriptType === 'final') {
+                const newMessage= { role: message.role, content: message.transcript}
+                setMessages((prev) => [newMessage, ...prev])
+            }
+        }
 
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
@@ -159,7 +153,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                     {
                                         name
                                             .split(' ')[0]
-                                            .replace('/[.,]/g, ','')
+                                            .replace(/[.,]/g, '')
                                     }: {message.content}
                                 </p>
                             )
